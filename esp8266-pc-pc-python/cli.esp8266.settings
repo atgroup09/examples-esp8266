@@ -1,0 +1,74 @@
+EXAMPLE
+
+Client/cli (Master)
+settings
+==============
+
+01. Connect ESP8266-module (ESP8266) to PowerSupply (3.3V)
+    ESP8266.Pin5(Vcc)   --- 3.3V.Vcc
+    ESP8266.Pin1(Gnd)   --- 3.3V.Gnd
+    ESP8266.Pin6(Rst)   --- 10kOm --- 3.3V.Vcc
+    ESP8266.Pin7(ChPd)  --- 3.3V.Vcc
+    ESP8266.Pin3(Gpio0) --- 10kOm --- 3.3V.Vcc
+
+02. Connect ESP8266-module (ESP8266) to UART-USB-converter (CONV)
+    ESP8266.Pin4(Rxd)   --- CONV.UART.Tx
+    ESP8266.Pin8(Txd)   --- CONV.UART.Rx
+    ESP8266.Pin1(Gnd)   --- CONV.UART.Gnd
+
+03. Connect UART-USB-converter (CONV) to PC (PC)
+    CONV.USB --- PC.USB
+
+On PC:
+
+04. Start Console (ex.:PuTTY)
+    COM10
+    115200 8 N 1 None
+    open the session
+
+In Console:
+# config, marked as [EEPROM], will store in the flash system parameter area
+# and automaticaly setup on Power-up
+
+05. Test AT-mode
+    AT
+    (OK)
+
+06. WiFi: set mode (Station) [EEPROM]
+    AT+CWMODE=1
+
+07. WiFi: set connect to AP [EEPROM]
+    AT+CWJAP="ESP8266_SRV","1234567890"
+
+    show current IP
+    AT+CIFSR
+    (192.168.4.2)
+
+    ping Server
+    AT+PING="192.168.4.1"
+
+08. Transfer: set mode (single connection)
+    AT+CIPMUX=0
+
+09. Transfer: set transparent transmission link [EEPROM]
+    AT+SAVETRANSLINK=1,"192.168.4.1",8081,"UDP",8082
+    where:
+    1 - UART-WiFi passthrogh mode
+    "192.168.4.1" - Server IP
+    8081 - Server UDP-port
+    "UDP" - type of the transparent transmission link
+    8082 - local UDP-port
+
+On PC:
+
+10. Close Console (ex.:PuTTY)
+    close the session
+    close console
+
+11. Set cli.py
+    open the script-file in a text editor (ex.NotePad)
+    COM_Num = "COM10";
+    save changes & close the script-file
+
+12. Start cli.py (!!! after start srv.cli !!!)
+    python.exe cli.py

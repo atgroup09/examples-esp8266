@@ -1,0 +1,17 @@
+# examples-esp8266
+
+## esp8266-pc-pc-python
+
+**Scheme**
+
+`PC1.Python.COM <-UART-> ESP8266.AP.Transparent.UDP <--- WiFi ---> ESP8266.ST.Transparent.UDP <-UART-> PC2.Python.COM`
+
+PC1 - Server/srv (Slave)
+- WiFi: Access Point (AP, SSID:"ESP8266_SRV", passwd:1234567890, enc:WPA2_PSK)
+- IP: 192.168.4.1
+- UDP port: 8081
+
+PC2 - Client/cli (Master)
+- WiFi: Station
+- IP: 192.168.4.2 (from Server.AP.DHCP)
+- UDP port: 8082

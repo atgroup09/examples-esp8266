@@ -1,0 +1,84 @@
+EXAMPLE
+
+Server/srv (Slave)
+settings
+==============
+
+01. Connect ESP8266-module (ESP8266) to PowerSupply (3.3V)
+    ESP8266.Pin5(Vcc)   --- 3.3V.Vcc
+    ESP8266.Pin1(Gnd)   --- 3.3V.Gnd
+    ESP8266.Pin6(Rst)   --- 10kOm --- 3.3V.Vcc
+    ESP8266.Pin7(ChPd)  --- 3.3V.Vcc
+    ESP8266.Pin3(Gpio0) --- 10kOm --- 3.3V.Vcc
+
+02. Connect ESP8266-module (ESP8266) to UART-USB-converter (CONV)
+    ESP8266.Pin4(Rxd)   --- CONV.UART.Tx
+    ESP8266.Pin8(Txd)   --- CONV.UART.Rx
+    ESP8266.Pin1(Gnd)   --- CONV.UART.Gnd
+
+03. Connect UART-USB-converter (CONV) to PC (PC)
+    CONV.USB --- PC.USB
+
+On PC:
+
+04. Start Console (ex.:PuTTY)
+    COM4
+    115200 8 N 1 None
+    open the session
+
+In Console:
+# config, marked as [EEPROM], will store in the flash system parameter area
+# and automaticaly setup on Power-up
+
+05. Test AT-mode
+    AT
+    (OK)
+
+06. WiFi: set mode (Access Point, AP) [EEPROM]
+    AT+CWMODE=2
+
+07. WiFi: set AP SSID, password, channel, encoding type (WPA2_PSK) [EEPROM]
+    AT+CWSAP="ESP8266_SRV","1234567890",5,3
+
+    show list of connected stantions
+    AT+CWLIF
+
+    show current IP
+    AT+CIFSR
+    (192.168.4.1)
+
+    ping Client
+    AT+PING="192.168.4.2"
+
+08. Transfer: set mode (single connection)
+    AT+CIPMUX=0
+
+09. Transfer: set transparent transmission link [EEPROM]
+    AT+SAVETRANSLINK=1,"192.168.4.2",8082,"UDP",8081
+    where:
+    1 - UART-WiFi passthrogh mode
+    "192.168.4.2" - Client IP
+    8082 - Client UDP-port
+    "UDP" - type of the transparent transmission link
+    8081 - local UDP-port
+
+10. Restart ESP8266
+    power-off > power-on
+    or
+    ESP8266.Pin6(Rst) --- 3.3V.Gnd
+    delay 1 sec
+    ESP8266.Pin6(Rst) --- 10kOm --- 3.3V.Vcc
+
+On PC:
+
+11. Close Console (ex.:PuTTY)
+    close the session
+    close console
+
+12. Set spy.py
+    open the script-file in a text editor (ex.NotePad)
+    COM_Num = "COM4";
+    save changes & close the script-file
+
+13. Start spy.py (!!! before start cli.cli !!!)
+    python.exe srv.py
