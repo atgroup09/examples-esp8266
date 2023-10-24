@@ -19,7 +19,6 @@ This repository contains source code of Embedded Control Programs (as Examples) 
      - AT (AT-commands)
      - UART0.baudrate: 115200
      - flash start address: 0x00000
-
 - Language
   - AT-commands
   - Python (client side)
