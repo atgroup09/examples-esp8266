@@ -17,3 +17,11 @@ This repository contains source code of Embedded Control Programs (as Examples) 
   - Language
     - AT-commands
     - Python (client side)
+
+**Rersources**
+
+- [Tools](https://drive.google.com/drive/folders/1uRlADZyCAepFLwLm_BQ_auAUabZPL0NA)
+  - flash-download-tool-3.9.5
+  - firmwares
+  - esptool
+  - esp8266-flasher
