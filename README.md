@@ -6,7 +6,7 @@ This repository contains source code of Embedded Control Programs (as Examples) 
 
 (WiFi-UART Transceiver)
 
-![esp-01 module](./images/001.png)
+![esp-01 module](./000-images/esp01.png)
 
 **Hardware Platform**
 
